@@ -58,12 +58,11 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
 LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
-
 """
 
-import pyspec3.compat_ironpython
+import pyspec2.compat_ironpython
 
-__version__ = "0.44alpha"
+__version__ = "0.45"
 
 __pyspec = 1
 ignore_stack = False

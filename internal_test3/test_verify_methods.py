@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from pyspec3.support.tmini_test import test
+from pyspec3.utils.mini_test import test
 import pyspec3
 
 

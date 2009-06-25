@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from pyspec3.support.tmini_test import test
-from pyspec3.mockobject import (MockResult, MockMethod, MockObject,
+from __future__ import with_statement
+from pyspec2.utils.mini_test import test
+from pyspec2.mockobject import (MockResult, MockMethod, MockObject,
                                 MockFile, MockSocket)
-from pyspec3.support.dprint import enable_debug_print
+from pyspec2.utils.dprint import enable_debug_print
 
 
 with test("mock method"):
@@ -86,13 +87,3 @@ with test("mock method: dump"):
     range2(start=1, to=4) == [1, 2, 3]
     range2.is_recording = False
     assert str(range2) == "range2(start=1, to=4) == [1, 2, 3]"
-
-
-with test("mock object: dump"):
-    enable_debug_print()
-    mock = MockObject(class_name="Calculator")
-    mock.add(v1=1, v2=2) == 3 # recording
-    mock.end_record()
-    mock.add(1, 2) # error: no kwargs
-    print(mock)
-    assert str(range2) == "MockObject of Calculator\n  add(1, 2) == 3\n"

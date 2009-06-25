@@ -21,9 +21,11 @@ This Module includes following objects.
    with socket.
 """
 
+import pyspec2
+from pyspec2.utils.dprint import dprint_for_lib
+
+
 __pyspec = 1
-import pyspec3
-from pyspec3.support.dprint import dprint_for_lib
 
 
 class MockResult(object):

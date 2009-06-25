@@ -90,7 +90,7 @@ class Identifier(object):
         self.functions = [None, None]
         if action is not None:
             self.name = key_or_identifier.name
-            self.action = set([action])
+            self.action = {action}
             self.functions[0] = self.match_all
             return
         key = key_or_identifier
@@ -103,20 +103,20 @@ class Identifier(object):
             match = self._every_name.match(key)
             if match:
                 self.name = None
-                self.action = set([match.group(1)])
+                self.action = {match.group(1)}
                 self.functions[0] = self.match_action_only
             else:
                 match = self._both_name_action.match(key)
                 if match:
                     self.name = match.group(1)
                     if match.group(2) == "call":
-                        self.action = set(["entry", "exit"])
+                        self.action = {"entry", "exit"}
                     else:
-                        self.action = set([match.group(2)])
+                        self.action = {match.group(2)}
                     self.functions[0] = self.match_all
                 else:
                     self.name = key
-                    self.action = set(["entry", "exit"])
+                    self.action = {"entry", "exit"}
                     self.functions[0] = self.match_all
         self.functions[1] = guard_condition
 
@@ -361,7 +361,7 @@ class OpenMethodAttribute(object):
 def expose(identifier):
     id_obj = Identifier(identifier)
     def _(f):
-        if len(set(["entry", "exit"]) & id_obj.action) == 2:
+        if len({"entry", "exit"} & id_obj.action) == 2:
             _tdfw.regist_exposition(id_obj, _dummy_method_ref(f))
             def __(*args, **kwargs):
                 _tdfw.twitter(Identifier(id_obj, "entry"), args, kwargs)
@@ -389,7 +389,7 @@ def expose(identifier):
 def expose_method(identifier):
     id_obj = Identifier(identifier)
     def _(f):
-        if id_obj.action.issubset(set("entry", "exit")):
+        if id_obj.action.issubset({"entry", "exit"}):
             OpenMethodAttribute.add_exposition(id_obj, f)
             def __(*args, **kwargs):
                 _tdfw.twitter(Identifier(id_obj, "entry"), args, kwargs)
@@ -619,6 +619,3 @@ def show_network():
 def twitter(identifier, *args, **kwargs):
     _tdfw.twitter(Identifier(identifier), args, kwargs)
 
-
-fire = twitter
-notify = twitter
